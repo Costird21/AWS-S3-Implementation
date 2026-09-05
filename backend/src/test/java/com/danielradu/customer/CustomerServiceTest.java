@@ -3,6 +3,8 @@ package com.danielradu.customer;
 import com.danielradu.exception.DuplicateResourceException;
 import com.danielradu.exception.RequestValidationException;
 import com.danielradu.exception.ResourceNotFoundException;
+import com.danielradu.s3.S3Buckets;
+import com.danielradu.s3.S3Service;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -24,12 +26,16 @@ class CustomerServiceTest {
     private CustomerDao customerDao;
     @Mock
     private PasswordEncoder passwordEncoder;
+    @Mock
+    private S3Service s3Service;
+    @Mock
+    private S3Buckets s3Buckets;
     private CustomerService underTest;
     private final CustomerDTOMapper customerDTOMapper = new CustomerDTOMapper();
 
     @BeforeEach
     void setUp() {
-        underTest = new CustomerService(customerDao, customerDTOMapper, passwordEncoder);
+        underTest = new CustomerService(customerDao, customerDTOMapper, passwordEncoder, s3Service, s3Buckets);
     }
 
     @Test
