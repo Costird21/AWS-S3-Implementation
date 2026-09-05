@@ -11,6 +11,10 @@ cors:
 
 aws:
   region: "eu-central-1"
+  s3:
+    buckets:
+      customer: "fs-danielradu-customer-test"
+
 
 management:
   endpoints:

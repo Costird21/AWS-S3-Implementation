@@ -3,15 +3,18 @@ package com.danielradu;
 import com.danielradu.customer.Customer;
 import com.danielradu.customer.CustomerRepository;
 import com.danielradu.customer.Gender;
+import com.danielradu.s3.S3Buckets;
 import com.danielradu.s3.S3Service;
 import com.github.javafaker.Faker;
 import com.github.javafaker.Name;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.io.IOException;
 import java.util.Random;
 
 @SpringBootApplication
@@ -25,19 +28,11 @@ public class Main {
     CommandLineRunner runner(
             CustomerRepository customerRepository,
             PasswordEncoder passwordEncoder,
-            S3Service s3Service) {
+            S3Service s3Service,
+            S3Buckets s3Buckets) {
         return args -> {
-         //   createRandomCustomer(customerRepository, passwordEncoder);
-            s3Service.putObject(
-                    "fs-danielradu-customer-test",
-                    "foo/bar/jamila",
-                    "Hello World!".getBytes()
-            );
-
-            byte[] object = s3Service.getObject("fs-danielradu-customer-test",
-                    "foo");
-
-            System.out.println("Hooray " + new String(object));
+            createRandomCustomer(customerRepository, passwordEncoder);
+         //   testBucketUploadAndDownload(s3Service, s3Buckets);
         };
     }
 
@@ -58,6 +53,22 @@ public class Main {
                 gender);
         customerRepository.save(customer);
         System.out.println(email);
+    }
+
+    public static void testBucketUploadAndDownload(S3Service s3Service, S3Buckets s3Buckets) throws IOException {
+        s3Service.putObject(
+                s3Buckets.getCustomer(),
+                "foo/bar/jamila",
+                "Hello World!".getBytes()
+        );
+
+        try {
+            byte[] object = s3Service.getObject(s3Buckets.getCustomer(), "foo");
+            System.out.println("Hooray " + new String(object));
+        } catch (IOException e) {
+            System.out.println("Failed to retrieve object");
+            throw new RuntimeException(e);
+        }
     }
 
 }
