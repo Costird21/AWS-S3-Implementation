@@ -134,6 +134,7 @@ public class CustomerService {
             throw new RuntimeException(e);
         }
         // TODO: Store profileImageID to db
+        customerDao.updateCustomerProfileImageId(profileImageID, customerId);
     }
 
 
@@ -146,10 +147,12 @@ public class CustomerService {
                 ));
 
         // TODO: Check if profileImageID is empty or null
-        String profileImageID = "TODO"; // Retrieve from db
+        if (customer.profileImageId().isBlank()) {
+            throw new ResourceNotFoundException("customer with id [%s] profile image not found".formatted(customerId));
+        }
 
         try {
-            return s3Service.getObject(s3Buckets.getCustomer(), "profile-images/%s/%s".formatted(customerId, profileImageID));
+            return s3Service.getObject(s3Buckets.getCustomer(), "profile-images/%s/%s".formatted(customerId, customer.profileImageId()));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
