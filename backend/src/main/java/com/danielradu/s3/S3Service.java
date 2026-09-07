@@ -30,21 +30,20 @@ public class S3Service {
         s3Client.putObject(objectRequest, RequestBody.fromBytes(file));
     }
 
-    public byte[] getObject(String bucketName, String key) throws IOException {
-        // Get request object from a (specific) bucket
-        GetObjectRequest objectRequest = GetObjectRequest.builder()
+    public byte[] getObject(String bucketName, String key) {
+        GetObjectRequest getObjectRequest = GetObjectRequest.builder()
                 .bucket(bucketName)
                 .key(key)
                 .build();
 
-        // Return the object in array of bytes (try to) using the GetObjectRequest
-         try {
-             return s3Client.getObject(objectRequest).readAllBytes();
+        ResponseInputStream<GetObjectResponse> res = s3Client.getObject(getObjectRequest);
 
-         }
-         catch (IOException e) {
-             throw new RuntimeException(e);
-         }
+        try {
+            return res.readAllBytes();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
 }

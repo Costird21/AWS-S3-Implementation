@@ -57,20 +57,15 @@ public class Main {
         System.out.println(email);
     }
 
-    public static void testBucketUploadAndDownload(S3Service s3Service, S3Buckets s3Buckets) throws IOException {
+    public static void testBucketUploadAndDownload(S3Service s3Service, S3Buckets s3Buckets){
         s3Service.putObject(
                 s3Buckets.getCustomer(),
                 "foo/bar/jamila",
                 "Hello World!".getBytes()
         );
 
-        try {
-            byte[] object = s3Service.getObject(s3Buckets.getCustomer(), "foo");
-            System.out.println("Hooray " + new String(object));
-        } catch (IOException e) {
-            System.out.println("Failed to retrieve object");
-            throw new RuntimeException(e);
-        }
+        byte[] object = s3Service.getObject(s3Buckets.getCustomer(), "foo");
+        System.out.println("Hooray " + new String(object));
     }
 
 }

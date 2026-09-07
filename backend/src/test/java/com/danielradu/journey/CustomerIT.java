@@ -290,7 +290,6 @@ public class CustomerIT {
     }
 
     @Test
-    @Disabled
     void canUploadAndDownloadProfilePictures() throws IOException {
         // create registration request
         Faker faker = new Faker();
@@ -374,6 +373,8 @@ public class CustomerIT {
                 .profileImageId();
 
         assertThat(profileImageId).isNotBlank();
+
+
 
         // download image for customer
         byte[] downloadedImage = webTestClient.get()

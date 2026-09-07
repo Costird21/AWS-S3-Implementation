@@ -5,6 +5,7 @@ import com.danielradu.exception.RequestValidationException;
 import com.danielradu.exception.ResourceNotFoundException;
 import com.danielradu.s3.S3Buckets;
 import com.danielradu.s3.S3Service;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -138,24 +139,23 @@ public class CustomerService {
     }
 
 
-    public byte[] getCustomerProfileImage(Integer customerId) throws IOException {
-
+    public byte[] getCustomerProfileImage(Integer customerId) {
         var customer = customerDao.selectCustomerById(customerId)
                 .map(customerDTOMapper)
                 .orElseThrow(() -> new ResourceNotFoundException(
                         "customer with id [%s] not found".formatted(customerId)
                 ));
 
-        // TODO: Check if profileImageID is empty or null
-        if (customer.profileImageId().isBlank()) {
-            throw new ResourceNotFoundException("customer with id [%s] profile image not found".formatted(customerId));
+        if (StringUtils.isBlank(customer.profileImageId())) {
+            throw new ResourceNotFoundException(
+                    "customer with id [%s] profile image not found".formatted(customerId));
         }
 
-        try {
-            return s3Service.getObject(s3Buckets.getCustomer(), "profile-images/%s/%s".formatted(customerId, customer.profileImageId()));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        byte[] profileImage = s3Service.getObject(
+                s3Buckets.getCustomer(),
+                "profile-images/%s/%s".formatted(customerId, customer.profileImageId())
+        );
+        return profileImage;
     }
 }
 
