@@ -10,6 +10,11 @@ services:
       - db:/data/postgres
     ports:
       - "5332:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U danielradu"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
     networks:
       - db
     restart: unless-stopped
