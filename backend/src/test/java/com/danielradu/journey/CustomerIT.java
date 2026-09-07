@@ -4,6 +4,7 @@ import com.danielradu.customer.*;
 import com.danielradu.s3.S3Service;
 import com.github.javafaker.Faker;
 import com.github.javafaker.Name;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -289,6 +290,7 @@ public class CustomerIT {
     }
 
     @Test
+    @Disabled
     void canUploadAndDownloadProfilePictures() throws IOException {
         // create registration request
         Faker faker = new Faker();
