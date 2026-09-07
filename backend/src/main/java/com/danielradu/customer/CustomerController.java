@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -56,16 +57,16 @@ public class CustomerController {
         customerService.updateCustomer(customerId, updateRequest);
     }
 
-    @PostMapping(value = "{customerId/profile-image}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PostMapping(value = "{customerId}/profile-image", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public void uploadCustomerProfileImage(@PathVariable Integer customerId,
-                                           @RequestParam("file") MultipartFile multipartFile) {
+                                           @RequestParam("file") MultipartFile multipartFile) throws IOException {
 
         customerService.uploadCustomerProfileImage(customerId, multipartFile);
 
     }
 
-    @GetMapping("{customerId/profile-image}")
-    public byte[] getCustomerProfileImage(@PathVariable Integer customerId) {
+    @GetMapping("{customerId}/profile-image")
+    public byte[] getCustomerProfileImage(@PathVariable Integer customerId) throws IOException {
 
         return customerService.getCustomerProfileImage(customerId);
 
