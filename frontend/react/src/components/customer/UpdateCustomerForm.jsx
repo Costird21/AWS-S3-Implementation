@@ -30,7 +30,7 @@ const MyTextInput = ({label, ...props}) => {
     );
 };
 
-const MyDropzone = ({customerId}) => {
+const MyDropzone = ({customerId, fetchCustomers}) => {
     const onDrop = useCallback(acceptedFiles => {
 
         const formData = new FormData();
@@ -39,6 +39,7 @@ const MyDropzone = ({customerId}) => {
 
         uploadCustomerProfilePicture(customerId, formData).then(() => {
             successNotification("Success", "Profile picture uploaded")
+            fetchCustomers();
         }).catch(() => {
             errorNotification("Failed", "Profile picture failed to upload")
         })
@@ -73,7 +74,9 @@ const UpdateCustomerForm = ({ fetchCustomers, initialValues, customerId }) => {
                     objectFit={'cover'}
                     src={customerProfilePictureUrl(customerId)}
                 />
-                <MyDropzone customerId = {customerId}/>
+                <MyDropzone
+                    customerId = {customerId}
+                    fetchCustomers={fetchCustomers}/>
             </VStack>
             <Formik
                 initialValues={initialValues}

@@ -65,7 +65,7 @@ public class CustomerController {
 
     }
 
-    @GetMapping("{customerId}/profile-image")
+    @GetMapping(value = "{customerId}/profile-image", produces = MediaType.IMAGE_JPEG_VALUE)
     public byte[] getCustomerProfileImage(@PathVariable Integer customerId) throws IOException {
 
         return customerService.getCustomerProfileImage(customerId);
