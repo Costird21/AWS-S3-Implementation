@@ -71,13 +71,13 @@ public class CustomerJDBCDataAccessService implements CustomerDao {
     }
 
     @Override
-    public boolean existsCustomerById(Integer id) {
+    public boolean existsCustomerById(Integer customerId) {
         var sql = """
                 SELECT count(id)
                 FROM customer
                 WHERE id = ?
                 """;
-        Integer count = jdbcTemplate.queryForObject(sql, Integer.class, id);
+        Integer count = jdbcTemplate.queryForObject(sql, Integer.class, customerId);
         return count != null && count > 0;
     }
 
@@ -132,5 +132,15 @@ public class CustomerJDBCDataAccessService implements CustomerDao {
         return jdbcTemplate.query(sql, customerRowMapper, email)
                 .stream()
                 .findFirst();
+    }
+
+    @Override
+    public void updateCustomerProfileImageId(String profileImageId, int customerId) {
+        var sql = """
+                UPDATE customer 
+                SET profile_image_id = ?
+                WHERE id = ?
+                """;
+        jdbcTemplate.update(sql, profileImageId, customerId);
     }
 }

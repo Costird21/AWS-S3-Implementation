@@ -58,9 +58,9 @@ public class CustomerListDataAccessService implements CustomerDao {
     }
 
     @Override
-    public boolean existsCustomerById(Integer id) {
+    public boolean existsCustomerById(Integer customerId) {
         return customers.stream()
-                .anyMatch(c -> c.getId().equals(id));
+                .anyMatch(c -> c.getId().equals(customerId));
     }
 
     @Override
@@ -81,6 +81,11 @@ public class CustomerListDataAccessService implements CustomerDao {
         return customers.stream()
                 .filter(c -> c.getUsername().equals(email))
                 .findFirst();
+    }
+
+    @Override
+    public void updateCustomerProfileImageId(String profileImageId, int customerId) {
+        // TODO: Implement this 😅
     }
 
 }
