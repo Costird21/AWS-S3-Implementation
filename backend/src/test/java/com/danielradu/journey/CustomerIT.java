@@ -1,16 +1,27 @@
 package com.danielradu.journey;
 
 import com.danielradu.customer.*;
+import com.danielradu.s3.S3Service;
 import com.github.javafaker.Faker;
 import com.github.javafaker.Name;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
+import org.springframework.http.client.MultipartBodyBuilder;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.reactive.server.WebTestClient;
+import org.springframework.web.reactive.function.BodyInserters;
+import org.testcontainers.shaded.com.google.common.io.Files;
 import reactor.core.publisher.Mono;
+import software.amazon.awssdk.services.s3.S3Client;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Random;
 import java.util.UUID;
@@ -20,6 +31,10 @@ import static org.springframework.boot.test.context.SpringBootTest.WebEnvironmen
 import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 
 @SpringBootTest(webEnvironment = RANDOM_PORT)
+@TestPropertySource(properties = {
+        "spring.servlet.multipart.max-file-size=10MB",
+        "spring.servlet.multipart.max-request-size=10MB"
+})
 public class CustomerIT {
 
     @Autowired
@@ -272,4 +287,6 @@ public class CustomerIT {
 
         assertThat(updatedCustomer).isEqualTo(expected);
     }
+
+
 }
