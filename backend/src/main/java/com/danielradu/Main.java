@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -18,6 +19,7 @@ import java.io.IOException;
 import java.util.Random;
 
 @SpringBootApplication
+@EnableConfigurationProperties(S3Buckets.class)
 public class Main {
 
     public static void main(String[] args) {
@@ -31,8 +33,8 @@ public class Main {
             S3Service s3Service,
             S3Buckets s3Buckets) {
         return args -> {
-            createRandomCustomer(customerRepository, passwordEncoder);
-         //   testBucketUploadAndDownload(s3Service, s3Buckets);
+          //  createRandomCustomer(customerRepository, passwordEncoder);
+          //  testBucketUploadAndDownload(s3Service, s3Buckets);
         };
     }
 

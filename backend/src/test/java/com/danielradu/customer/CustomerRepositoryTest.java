@@ -2,11 +2,13 @@ package com.danielradu.customer;
 
 import com.danielradu.AbstractTestcontainers;
 import com.danielradu.TestConfig;
+import com.danielradu.s3.S3Service;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Import;
 
@@ -18,6 +20,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @Import({TestConfig.class})
 class CustomerRepositoryTest extends AbstractTestcontainers {
+
+    @MockBean
+    private S3Service s3Service;
 
     @Autowired
     private CustomerRepository underTest;
