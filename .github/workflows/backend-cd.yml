@@ -73,6 +73,10 @@ jobs:
           SPRING_DATASOURCE_URL: jdbc:postgresql://localhost:5332/customer
           SPRING_DATASOURCE_USERNAME: danielradu
           SPRING_DATASOURCE_PASSWORD: password
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: ${{ secrets.AWS_REGION }}
+          AWS_S3_BUCKET_NAME: ${{ secrets.AWS_S3_BUCKET_NAME }}
         run: mvn -ntp -B verify -Ddocker.image.tag=${{ steps.build-number.outputs.BUILD_NUMBER }} jib:build
 
       - name: Send Slack Message
