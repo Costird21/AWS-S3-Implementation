@@ -1,7 +1,7 @@
 {
   "AWSEBDockerrunVersion": "1",
   "Image": {
-    "Name": "dcr20/danielradu-api:08.09.2026.10.38.13",
+    "Name": "dcr20/danielradu-api:08.09.2026.11.56.21",
     "Update": "true"
   },
   "Ports": [
