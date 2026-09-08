@@ -3,7 +3,7 @@
   "containerDefinitions": [
     {
       "name": "danielradu-api",
-      "image": "danielradu/danielradu-api:21.02.2023.15.22.51",
+      "image": "dcr20/danielradu-api:21.02.2023.15.22.51",
       "essential": true,
       "memory": 512,
       "portMappings": [

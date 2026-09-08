@@ -18,7 +18,7 @@
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
-        <docker.username>danielradu</docker.username>
+        <docker.username>dcr20</docker.username>
         <docker.image.name>danielradu-api</docker.image.name>
         <docker.image.tag/>
         <jsonwebtoken.version>0.11.5</jsonwebtoken.version>
