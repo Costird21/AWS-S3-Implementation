@@ -2,8 +2,8 @@
   "AWSEBDockerrunVersion": 2,
   "containerDefinitions": [
     {
-      "name": "dcr20/danielradu-api",
-      "image": "danielradu/amigoscode-api:21.02.2023.15.22.51",
+      "name": "danielradu-api",
+      "image": "danielradu/danielradu-api:21.02.2023.15.22.51",
       "essential": true,
       "memory": 512,
       "portMappings": [
@@ -15,9 +15,10 @@
       "environment": [
         {
           "name": "SPRING_DATASOURCE_URL",
-          "value": "jdbc:postgresql://awseb-e-ezjnxfjb44-stack-awsebrdsdatabase-f2ocmocryc5g.celswdmxhcr1.eu-west-1.rds.amazonaws.com:5432/ebdb"
+          "value": "jdbc:postgresql://danielradu-api-db.chqqcku4cldy.eu-central-1.rds.amazonaws.com:5432/customer"
         }
       ]
     }
   ]
 }
+

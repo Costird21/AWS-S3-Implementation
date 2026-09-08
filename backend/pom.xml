@@ -11,15 +11,15 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
-    <groupId>org.amigoscode</groupId>
+    <groupId>org.danielradu</groupId>
     <artifactId>danielradu-api</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
-        <docker.username>amigoscode</docker.username>
-        <docker.image.name>amigoscode-api</docker.image.name>
+        <docker.username>danielradu</docker.username>
+        <docker.image.name>danielradu-api</docker.image.name>
         <docker.image.tag/>
         <jsonwebtoken.version>0.11.5</jsonwebtoken.version>
     </properties>
@@ -135,11 +135,6 @@
             <artifactId>commons-io</artifactId>
             <version>2.16.1</version>
         </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
-        </dependency>
-
 
     </dependencies>
 
