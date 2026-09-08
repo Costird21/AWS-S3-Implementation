@@ -115,6 +115,24 @@ jobs:
           python -m json.tool ../Dockerrun.aws.json
           echo "===================================="
 
+      - name: Prepare Elastic Beanstalk deployment package
+        working-directory: ${{ github.workspace }}
+        run: |
+          rm -rf eb-package
+          rm -f eb-deploy.zip
+
+          mkdir eb-package
+
+          cp Dockerrun.aws.json eb-package/
+          cp -R .platform eb-package/
+
+          echo "===== EB PACKAGE ====="
+          find eb-package -type f -print
+          echo "======================"
+
+          cd eb-package
+          zip -r ../eb-deploy.zip .
+
       - name: Deploy to Elastic Beanstalk
         uses: einaregilsson/beanstalk-deploy@v21
         with:
@@ -125,7 +143,7 @@ jobs:
           version_label: ${{ steps.build-number.outputs.BUILD_NUMBER }}
           version_description: ${{ github.SHA }}
           region: ${{ secrets.EB_REGION }}
-          deployment_package: ${{ github.workspace }}/Dockerrun.aws.json
+          deployment_package: ${{ github.workspace }}/eb-deploy.zip
       - name: Send Slack Message
         run: >
           curl -X POST -H 'Content-type: application/json'
