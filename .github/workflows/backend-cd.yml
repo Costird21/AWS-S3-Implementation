@@ -101,6 +101,12 @@ jobs:
           --data '{"text":":aws: Starting deployment to Elastic Beanstalk"}'
           ${{ secrets.SLACK_WEBHOOK_URL }}
 
+      - name: Verify Dockerrun
+        run:
+          echo "===== DOCKERRUN BEING DEPLOYED ====="
+          cat ../Dockerrun.aws.json
+          echo "===================================="
+
       - name: Deploy to Elastic Beanstalk
         uses: einaregilsson/beanstalk-deploy@v21
         with:
