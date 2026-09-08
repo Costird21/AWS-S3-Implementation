@@ -1,12 +1,12 @@
 {
-  "AWSEBDockerrunVersion": 1,
+  "AWSEBDockerrunVersion": "1",
   "Image": {
     "Name": "dcr20/danielradu-api:21.02.2023.15.22.51",
     "Update": "true"
   },
   "Ports": [
     {
-      "ContainerPort": 8080
+      "ContainerPort": "8080"
     }
   ]
 }

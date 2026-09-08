@@ -82,7 +82,7 @@ jobs:
       - name: Send Slack Message
         run: >
           curl -X POST -H 'Content-type: application/json'
-          --data '{"text":":docker: Image tag:${{ steps.build-number.outputs.BUILD_NUMBER }} pushed to https://hub.docker.com/repository/docker/danielradu/danielradu-api"}'
+          --data '{"text":":docker: Image tag:${{ steps.build-number.outputs.BUILD_NUMBER }} pushed to https://hub.docker.com/repository/docker/dcr20/danielradu-api"}'
           ${{ secrets.SLACK_WEBHOOK_URL }}
 
       - name: Update Dockerrun.aws.json api image tag with new build number
@@ -122,8 +122,7 @@ jobs:
           version_label: ${{ steps.build-number.outputs.BUILD_NUMBER }}
           version_description: ${{ github.SHA }}
           region: ${{ secrets.EB_REGION }}
-          deployment_package: Dockerrun.aws.json
-
+          deployment_package: ${{ github.workspace }}/Dockerrun.aws.json
       - name: Send Slack Message
         run: >
           curl -X POST -H 'Content-type: application/json'
