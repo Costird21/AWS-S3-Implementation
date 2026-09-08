@@ -115,7 +115,7 @@ The application uses AWS IAM to control access between the deployed Spring Boot 
 ## Technology Stack
 
 ### Backend
-- Java 17
+- Java 26
 - Spring Boot
 - Spring Security
 - Spring Data JPA
@@ -281,7 +281,7 @@ AWS-S3-Implementation/
 
 ### Prerequisites
 Make sure you have the following installed:
-- Java 17
+- Java 26
 - Maven
 - Node.js
 - Docker
