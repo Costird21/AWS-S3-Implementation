@@ -102,9 +102,14 @@ jobs:
           ${{ secrets.SLACK_WEBHOOK_URL }}
 
       - name: Verify Dockerrun
-        run:
+        run: |
           echo "===== DOCKERRUN BEING DEPLOYED ====="
+          pwd
+          ls -la ..
+          echo "--- FILE CONTENT ---"
           cat ../Dockerrun.aws.json
+          echo "--- JSON CHECK ---"
+          python -m json.tool ../Dockerrun.aws.json
           echo "===================================="
 
       - name: Deploy to Elastic Beanstalk
